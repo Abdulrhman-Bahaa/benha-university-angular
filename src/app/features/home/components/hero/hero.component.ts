@@ -28,7 +28,7 @@ import { ScrollService } from '../../../../core/services/scroll.service';
   `,
   styles: [`
     .hero {
-      // background: url('/assets/images/hero-bg.jpg') center/cover;
+      // background: url('assets/images/hero-bg.jpg') center/cover;
       height: 80vh;
       position: relative;
       overflow: hidden;

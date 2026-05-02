@@ -108,7 +108,7 @@ interface TeamMember {
     }
 
     .hero {
-        // background: url('/assets/images/hero-bg.jpg') center/cover;
+        // background: url('assets/images/hero-bg.jpg') center/cover;
         height: 80vh;
         position: relative;
         overflow: hidden;
@@ -139,23 +139,22 @@ interface TeamMember {
     } 
 
   .hero-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 
-      background-image: image('/assets/images/main/main.jpg');
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+     url('/benha-university-angular/assets/images/main/main.jpg');
 
-        background-image:
-    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('/assets/images/main/main.jpeg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
-      z-index: 0;
-    }
+    z-index: 0;
+  }
 
     .hero-overlay .container {
       position: absolute;

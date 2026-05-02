@@ -16,7 +16,7 @@ He further emphasized the university’s dedication to staying informed about th
 The program covered several vital topics, including modern digital infrastructure technologies and their applications, cybersecurity frameworks for cross-border systems, risk management in digital transformation projects, digital governance policies, building secure digital environments, and ways to enhance international cooperation in cybersecurity.
 The workshop also aims to develop technical and administrative capabilities in securing digital infrastructure, promote best practices in cybersecurity risk management, encourage the exchange of expertise among professionals and decision-makers, and support international collaboration to achieve safe and sustainable digital development, while fostering innovation and ensuring trust and security in digital networks.
 `,
-      imageUrl: '/assets/images/news/WhatsApp Image 2026-05-01 at 6.06.19 PM.jpeg',
+      imageUrl: 'assets/images/news/WhatsApp Image 2026-05-01 at 6.06.19 PM.jpeg',
       category: 'International',
       slug: 'cybersecurity-workshop-china'
     },
@@ -24,7 +24,7 @@ The workshop also aims to develop technical and administrative capabilities in s
       id: 2,
       title: 'Benha University Announces Senior-Level Supervisory Job Vacancies for University and Faculty Staff',
       excerpt: 'Open positions for first-level supervisory roles for internal staff across the university...',
-      imageUrl: '/assets/images/news/Gemini_Generated_Image_oz49i9oz49i9oz49.jpeg',
+      imageUrl: 'assets/images/news/Gemini_Generated_Image_oz49i9oz49i9oz49.jpeg',
       category: 'Careers',
       slug: 'supervisory-job-opportunities'
     },
@@ -32,7 +32,7 @@ The workshop also aims to develop technical and administrative capabilities in s
       id: 3,
       title: 'Strengthening Cultural and Scientific Cooperation: Benha University President Receives the Japanese Ambassador to Cairo',
       excerpt: 'The university president met with the Japanese ambassador to discuss future academic collaboration...',
-      imageUrl: '/assets/images/news/WhatsApp Image 2026-05-01 at 5.45.53 PM.jpeg',
+      imageUrl: 'assets/images/news/WhatsApp Image 2026-05-01 at 5.45.53 PM.jpeg',
       category: 'Collaboration',
       slug: 'cultural-scientific-cooperation'
     },
@@ -40,7 +40,7 @@ The workshop also aims to develop technical and administrative capabilities in s
       id: 4,
       title: 'Call for Nominations for the Egypt Government Excellence Award 2026',
       excerpt: 'Open positions for first-level supervisory roles for internal staff across the university...',
-      imageUrl: '/assets/images/news/WhatsApp Image 2026-04-30 at 11.46.33 PM.jpeg',
+      imageUrl: 'assets/images/news/WhatsApp Image 2026-04-30 at 11.46.33 PM.jpeg',
       category: 'Careers',
       slug: 'egypt-government-excellence-award-2026'
     },
@@ -48,7 +48,7 @@ The workshop also aims to develop technical and administrative capabilities in s
       id: 5,
       title: 'Within the Framework of the “100 Million Trees” Initiative: Benha University President Inspects the 3rd Annual Flower Exhibition',
       excerpt: 'The university president met with the Japanese ambassador to discuss future academic collaboration...',
-      imageUrl: '/assets/images/news/WhatsApp Image 2026-05-01 at 12.07.53 AM.jpeg',
+      imageUrl: 'assets/images/news/WhatsApp Image 2026-05-01 at 12.07.53 AM.jpeg',
       category: 'Collaboration',
       slug: 'culturadl-scientifsic-cooperdation'
     },
@@ -56,7 +56,7 @@ The workshop also aims to develop technical and administrative capabilities in s
       id: 6,
       title: 'Benha University Announces Vacancy for Head of Education and Student Affairs Department  Faculty of Medicine',
       excerpt: 'The university president met with the Japanese ambassador to discuss future academic collaboration...',
-      imageUrl: '/assets/images/news/Gemini_Generated_Image_oz49i9oz49i9oz49.jpeg',
+      imageUrl: 'assets/images/news/Gemini_Generated_Image_oz49i9oz49i9oz49.jpeg',
       category: 'Collaboration',
       slug: 'cultural-sciefntific-cooperation'
     }
