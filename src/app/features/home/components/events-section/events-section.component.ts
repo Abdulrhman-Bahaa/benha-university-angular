@@ -215,7 +215,7 @@ export class EventsSectionComponent implements OnInit, OnDestroy {
   }
 
   nextSlide(): void {
-    const next = (this.currentSlide() + 1) % this.events().length;
+    const next = (this.currentSlide() + 1) % Math.min(this.events().length, 5);
     this.currentSlide.set(next);
   }
 
