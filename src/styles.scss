@@ -1,0 +1,157 @@
+/* Global Styles & CSS Variables */
+:root {
+  --primary-orange: #f38230;
+  --dark-blue: #15294b;
+  --text-gray: #666;
+  --bg-light: #f9f9f9;
+  --white: #ffffff;
+  --border-color: #eee;
+  --transition-speed: 0.3s;
+}
+
+C html {
+  scroll-behavior: smooth;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: var(--text-gray);
+  background-color: var(--white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section-margin {
+  margin: 50px auto;
+}
+
+/* Utility Classes */
+.text-center {
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-between {
+  justify-content: space-between;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.gap-1 {
+  gap: 0.5rem;
+}
+
+.gap-2 {
+  gap: 1rem;
+}
+
+.gap-3 {
+  gap: 1.5rem;
+}
+
+/* Button Base */
+.btn {
+  display: inline-block;
+  padding: 12px 25px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+  font-size: 0.95rem;
+}
+
+.btn-primary {
+  background: var(--primary-orange);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background-color: #d66d24;
+}
+
+.btn-secondary {
+  background: var(--dark-blue);
+  color: var(--white);
+  padding: 10px 20px;
+}
+
+.btn-secondary:hover {
+  background-color: #0f1f3a;
+}
+
+/* Animations */
+@keyframes pulse-orange {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.pulse-animation {
+  animation: pulse-orange 3s infinite ease-in-out;
+}
+
+.pulse-animation:hover {
+  animation: none;
+}
+
+/* Scroll Reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease-out;
+  visibility: hidden;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+/* Card Hover Effects */
+.card-hover {
+  transition: transform var(--transition-speed) ease,
+    box-shadow var(--transition-speed) ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Grid */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 15px;
+  }
+
+  .section-margin {
+    margin: 30px auto;
+  }
+}
