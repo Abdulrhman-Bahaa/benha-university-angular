@@ -1,12 +1,14 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
 import { NewsItem } from '../models/news.model';
 import { EventItem } from '../models/event.model';
+import { ResourceItem } from '../models/resource.model ';
 import { NewsService } from './news.service';
 import { EventService } from './event.service';
+import { ResourcesService } from './resources.service ';
 
 export interface SearchResult {
-  type: 'news' | 'event';
-  item: NewsItem | EventItem;
+  type: 'news' | 'event' | 'resource';
+  item: NewsItem | EventItem | ResourceItem;
   relevance: number;
 }
 
@@ -14,8 +16,10 @@ export interface SearchResult {
   providedIn: 'root'
 })
 export class SearchService {
-  private newsService = new NewsService();
-  private eventService = new EventService();
+
+  private newsService = inject(NewsService);
+  private eventService = inject(EventService);
+  private resourcesService = inject(ResourcesService);
 
   private readonly _query = signal('');
   private readonly _results = signal<SearchResult[]>([]);
@@ -55,6 +59,14 @@ export class SearchService {
       const relevance = this.calculateRelevance(trimmed, event.title, event.description, event.location);
       if (relevance > 0) {
         allResults.push({ type: 'event', item: event, relevance });
+      }
+    });
+
+    // Search resources
+    this.resourcesService.resources().forEach(resource => {
+      const relevance = this.calculateRelevance(trimmed, resource.title, resource.excerpt, resource.slug);
+      if (relevance > 0) {
+        allResults.push({ type: 'resource', item: resource, relevance });
       }
     });
 

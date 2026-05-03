@@ -69,13 +69,6 @@ import { TitleCasePipe } from '@angular/common';
                   <div class="result-content">
                     <span class="result-type">{{ result.type | titlecase }}</span>
                     <h4>{{ result.item.title }}</h4>
-                    <p>
-                      @if (result.type === 'news') {
-                        {{ (result.item) }}
-                      } @else {
-                        {{ (result.item) }}
-                      }
-                    </p>  
                   </div>
                   <i class="fas fa-arrow-right result-arrow"></i>
                 </a>
