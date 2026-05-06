@@ -2,13 +2,12 @@ import { Component, inject, HostListener } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { SearchService, SearchResult } from '../../../core/services/search.service';
-import { TruncatePipe } from '../../../shared/pipes/truncate.pipe';
 import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-search-overlay',
   standalone: true,
-  imports: [RouterLink, FormsModule, TruncatePipe, TitleCasePipe],
+  imports: [RouterLink, FormsModule, TitleCasePipe],
   template: `
     <div class="search-overlay" (click)="closeOverlay($event)">
       <div class="search-container" (click)="$event.stopPropagation()">
