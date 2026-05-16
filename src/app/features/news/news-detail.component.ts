@@ -23,6 +23,7 @@ import { DatePipe } from "@angular/common";
         <img [src]="news.coverUrl" [alt]="news.title" class="featured-image" />
 
         <div class="content">
+          <p class="excerpt">{{ news.date | date: "mediumDate" }}</p>
           <div class="full-content">
             <div class="news-content" [innerHTML]="news.content"></div>
           </div>
