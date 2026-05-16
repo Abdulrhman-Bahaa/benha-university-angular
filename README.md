@@ -2,6 +2,8 @@
 
 A modern, responsive university portal built with Angular 17+ standalone components.
 
+Try it live at https://abdulrhman-bahaa.github.io/benha-university-angular/
+
 ## Features
 
 - **Standalone Components** - No NgModules, using Angular's latest component architecture
