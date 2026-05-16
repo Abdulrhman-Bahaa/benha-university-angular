@@ -1,4 +1,4 @@
-import { Component, inject, signal, HostListener } from "@angular/core";
+import { Component, inject, signal, HostListener, OnInit } from "@angular/core";
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { ScrollService } from "../../../core/services/scroll.service";
@@ -76,6 +76,19 @@ interface NavItem {
           <input (click)="openSearch()" type="text" placeholder="Search" />
           <i class="fas fa-search"></i>
         </div>
+
+        <button
+          class="theme-toggle"
+          type="button"
+          (click)="toggleTheme()"
+          aria-label="Toggle dark mode"
+        >
+          <i
+            class="fas"
+            [class.fa-moon]="!isDarkMode()"
+            [class.fa-sun]="isDarkMode()"
+          ></i>
+        </button>
       </nav>
     </header>
 
@@ -120,6 +133,10 @@ interface NavItem {
         cursor: pointer;
         letter-spacing: -0.5px;
         display: inline-flex;
+      }
+
+      .logo svg path {
+        fill: var(--dark-blue) !important;
       }
 
       .draw {
@@ -217,13 +234,33 @@ interface NavItem {
       }
 
       .search-bar {
-        background: #f0f0f0;
+        background: var(--bg-light);
         padding: 8px 15px;
         border-radius: 25px;
         display: flex;
         align-items: center;
         gap: 8px;
         transition: box-shadow 0.2s;
+      }
+
+      .theme-toggle {
+        margin-left: 12px;
+        background: var(--bg-light);
+        border: 1px solid var(--border-color);
+        color: var(--dark-blue);
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .theme-toggle:hover {
+        background: var(--white);
+        transform: translateY(-1px);
       }
 
       .search-bar:focus-within {
@@ -292,11 +329,12 @@ interface NavItem {
     `,
   ],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   private scrollService = inject(ScrollService);
 
   isMobileMenuOpen = false;
   isSearchOpen = signal(false);
+  isDarkMode = signal(false);
 
   navItems: NavItem[] = [
     { label: "Home", route: "/", exact: true },
@@ -312,6 +350,33 @@ export class HeaderComponent {
     document.addEventListener("closeSearchOverlay", () => {
       this.isSearchOpen.set(false);
     });
+  }
+
+  ngOnInit(): void {
+    this.setTheme(this.getInitialTheme());
+  }
+
+  toggleTheme(): void {
+    this.setTheme(!this.isDarkMode());
+  }
+
+  private getInitialTheme(): boolean {
+    const storedTheme = localStorage.getItem("benha-theme");
+    if (storedTheme === "dark") {
+      return true;
+    }
+    if (storedTheme === "light") {
+      return false;
+    }
+
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+
+  private setTheme(darkMode: boolean): void {
+    this.isDarkMode.set(darkMode);
+    document.documentElement.classList.toggle("dark-theme", darkMode);
+    document.body.classList.toggle("dark-theme", darkMode);
+    localStorage.setItem("benha-theme", darkMode ? "dark" : "light");
   }
 
   toggleMobileMenu(): void {

@@ -3,6 +3,7 @@
   --primary-orange: #f38230;
   --dark-blue: #15294b;
   --text-gray: #666;
+  --text-muted: #999;
   --bg-light: #f9f9f9;
   --white: #ffffff;
   --border-color: #eee;
@@ -12,6 +13,34 @@
 C html {
   scroll-behavior: smooth;
 }
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: var(--text-gray);
+  background-color: var(--white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html.dark-theme,
+body.dark-theme {
+  color-scheme: dark;
+  color: #d8dde3;
+  background-color: #0d1119;
+}
+
+html.dark-theme {
+  --primary-orange: #ffb56b;
+  --dark-blue: #8fa8d6;
+  --text-gray: #d8dde3;
+  --text-muted: #94a3b8;
+  --bg-light: #131a27;
+  --white: #0b1220;
+  --border-color: #24314d;
+  --hero-color : #d8dde3;
+}
+
 
 * {
   margin: 0;
