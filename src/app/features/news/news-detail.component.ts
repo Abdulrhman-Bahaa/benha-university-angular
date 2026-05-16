@@ -23,9 +23,8 @@ import { DatePipe } from "@angular/common";
         <img [src]="news.coverUrl" [alt]="news.title" class="featured-image" />
 
         <div class="content">
-          <p class="excerpt">{{ news.date | date: "mediumDate" }}</p>
           <div class="full-content">
-            <div [innerHTML]="news.content"></div>
+            <div class="news-content" [innerHTML]="news.content"></div>
           </div>
           <p class="source">{{ news.source }}</p>
         </div>
@@ -106,11 +105,17 @@ import { DatePipe } from "@angular/common";
         font-style: italic;
       }
 
-      .full-content p {
-        font-size: 1rem;
-        line-height: 1.8;
-        color: #444;
+      // .full-content p {
+      //   font-size: 1rem;
+      //   line-height: 1.8;
+      //   color: #444;
+      //   margin-bottom: 20px;
+      // }
+
+      .full-content .news-content ul {
+        white-space: pre-wrap;
         margin-bottom: 20px;
+        padding-left: 50px;
       }
 
       .not-found {
@@ -135,6 +140,24 @@ import { DatePipe } from "@angular/common";
         .featured-image {
           height: 250px;
         }
+      }
+
+      .news-content {
+        line-height: 1.8;
+      }
+
+      .news-content p {
+        margin-bottom: 20px;
+      }
+
+      .news-content ul,
+      .news-content ol {
+        padding-left: 40px;
+        margin-bottom: 20px;
+      }
+
+      .news-content li {
+        margin-bottom: 8px;
       }
     `,
   ],

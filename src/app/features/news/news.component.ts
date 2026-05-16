@@ -21,7 +21,7 @@ import { NewsItem } from "../../core/models/news.model";
               <h3>
                 <a [routerLink]="['/news', news.slug]">{{ news.title }}</a>
               </h3>
-              <p>{{ news.content | truncate: 150 }}</p>
+              <p>{{ news.excerpt | truncate: 150 }}</p>
               @if (news.category) {
                 <span class="category">{{ news.category }}</span>
               }
