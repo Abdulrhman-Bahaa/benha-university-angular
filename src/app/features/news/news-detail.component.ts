@@ -20,7 +20,7 @@ import { DatePipe } from "@angular/common";
           <h1>{{ news.title }}</h1>
         </div>
 
-        <img [src]="news.imageUrl" [alt]="news.title" class="featured-image" />
+        <img [src]="news.coverUrl" [alt]="news.title" class="featured-image" />
 
         <div class="content">
           <p class="excerpt">{{ news.date | date: "mediumDate" }}</p>
@@ -147,5 +147,3 @@ export class NewsDetailComponent {
 
   newsItem = signal<NewsItem | undefined>(undefined);
 }
-
-// Need to import signal

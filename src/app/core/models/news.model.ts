@@ -1,10 +1,11 @@
 export interface NewsItem {
-  id: number;
+  id: string;
   title: string;
+  date: string;
   excerpt: string;
-  // content?: string;
-  imageUrl: string;
-  category?: string;
-  date?: Date;
+  content: any; // or Contentful Rich Text type
+  source: string;
+  coverUrl: string;
+  category: string;
   slug: string;
 }
