@@ -87,6 +87,7 @@ import { DatePipe } from "@angular/common";
 
       .content {
         max-width: 800px;
+        white-space: pre-line;
       }
 
       .excerpt {
