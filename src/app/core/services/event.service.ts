@@ -1,132 +1,24 @@
-import { Injectable, signal } from '@angular/core';
-import { EventItem } from '../models/event.model';
+import { Injectable, signal } from "@angular/core";
+import { EventItem } from "../models/event.model";
+import { ContentfulService } from "./contentful.service";
+import { inject } from "@angular/core";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class EventService {
-  private readonly _events = signal<EventItem[]>([
-    {
-      id: 1,
-      title: 'Benha University at Annual Gymnastrada Festival',
-      description: 'A cultural and sports participation event showcasing university activities.',
-      imageUrl: 'assets/images/events/Benha University at Annual Gymnastrada Festival.jpg',
-      location: 'Benha University',
-      slug: 'annual-gymnastrada-festival'
-    },
-    {
-      id: 2,
-      title: 'Benha University Hosts 3rd Delta & Greater Cairo Sports Festival',
-      description: 'A major sports festival bringing together universities from Delta and Greater Cairo.',
-      imageUrl: 'assets/images/events/Benha University Hosts 3rd Delta & Greater Cairo Sports Festival.jpg',
-      location: 'Benha University',
-      slug: 'delta-greater-cairo-sports-festival'
-    },
-    {
-      id: 3,
-      title: 'Benha University Hosts First Greater Cairo Folk Arts Festival',
-      description: 'A cultural festival celebrating traditional folk arts from Greater Cairo.',
-      imageUrl: 'assets/images/events/Benha University Hosts First Greater Cairo Folk Arts Festival.jpg',
-      location: 'Benha University',
-      slug: 'greater-cairo-folk-arts-festival'
-    },
-    {
-      id: 4,
-      title: 'First Student Conference of the Faculty of Specific Education',
-      description: 'A student-led academic conference discussing educational innovations.',
-      imageUrl: 'assets/images/events/First Student Conference of the Faculty of Specific Education.jpg',
-      location: 'Faculty of Specific Education',
-      slug: 'first-student-conference-specific-education'
-    },
-    {
-      id: 5,
-      title: 'Future of Heritage Conference III: Towards Sustainable Heritage',
-      description: 'A conference focused on sustainability and heritage preservation.',
-      imageUrl: 'assets/images/events/Future of Heritage Conference III_ Towards Sustainable Heritage.jpg',
-      location: 'University Conference Hall',
-      slug: 'future-of-heritage-iii-sustainable-heritage'
-    },
-    {
-      id: 6,
-      title: 'Future of Heritage: Visions and Challenges Conference',
-      description: 'An academic discussion on challenges and future visions of heritage.',
-      imageUrl: 'assets/images/events/Future of Heritage_ Visions and Challenges Conference.jpg',
-      location: 'University Conference Hall',
-      slug: 'future-of-heritage-visions-challenges'
-    },
-    {
-      id: 7,
-      title: 'Handicrafts Exhibition',
-      description: 'An exhibition showcasing traditional and modern handcrafted works.',
-      imageUrl: 'assets/images/events/Handicrafts Exhibition.jpg',
-      location: 'Faculty of Arts',
-      slug: 'handicrafts-exhibition'
-    },
-    {
-      id: 8,
-      title: 'Inclusive Sports Festival for Delta & Greater Cairo Universities',
-      description: 'A sports event promoting inclusion and participation across universities.',
-      imageUrl: 'assets/images/events/Inclusive Sports Festival for Delta & Greater Cairo Universities.jpg',
-      location: 'Benha University',
-      slug: 'inclusive-sports-festival-delta-greater-cairo'
-    },
-    {
-      id: 9,
-      title: 'Middle East International Conference on Electrical Power Systems',
-      description: 'An international conference on advancements in electrical power systems.',
-      imageUrl: 'assets/images/events/Middle East International Conference on Electrical Power Systems.jpg',
-      location: 'Faculty of Engineering',
-      slug: 'electrical-power-systems-conference'
-    },
-    {
-      id: 10,
-      title: 'Our Identity Makes Us Unique Summer Activities Initiative',
-      description: 'A summer initiative promoting cultural identity and student engagement.',
-      imageUrl: 'assets/images/events/Our Identity Makes Us Unique Summer Activities Initiative.jpg',
-      location: 'Student Affairs',
-      slug: 'identity-summer-activities'
-    },
-    {
-      id: 11,
-      title: 'The 1st Annual Conference of the Faculty of Arts',
-      description: 'The first academic conference hosted by the Faculty of Arts.',
-      imageUrl: 'assets/images/events/The 1st Annual Conference of the Faculty of Arts.jpg',
-      location: 'Faculty of Arts',
-      slug: 'first-annual-conference-arts'
-    },
-    {
-      id: 12,
-      title: 'The 4th Annual Conference for Graduate Studies in Applied Sciences',
-      description: 'A conference focused on advanced research in applied sciences.',
-      imageUrl: 'assets/images/events/The 4th Annual Conference for Graduate Studies in Applied Sciences.jpg',
-      location: 'Graduate Studies Center',
-      slug: '4th-conference-applied-sciences'
-    },
-    {
-      id: 13,
-      title: 'The 4th Annual Conference for Graduate Studies in Humanities',
-      description: 'An academic conference dedicated to humanities research.',
-      imageUrl: 'assets/images/events/The 4th Annual Conference for Graduate Studies in Humanities.jpg',
-      location: 'Graduate Studies Center',
-      slug: '4th-conference-humanities'
-    },
-    {
-      id: 14,
-      title: 'The 5th Annual Conference for Graduate Studies in Applied Sciences',
-      description: 'A continuation of applied sciences research conferences.',
-      imageUrl: 'assets/images/events/The 5th Annual Conference for Graduate Studies in Applied Sciences.jpg',
-      location: 'Graduate Studies Center',
-      slug: '5th-conference-applied-sciences'
-    }
-  ]);
+  private contentfulService = inject(ContentfulService);
+  private readonly _events = signal<EventItem[]>([]);
+
+  constructor() {
+    this.contentfulService.getEvents().subscribe((events) => {
+      this._events.set(events);
+    });
+  }
 
   readonly events = this._events.asReadonly();
 
-  getEventById(id: number): EventItem | undefined {
-    return this._events().find(item => item.id === id);
-  }
-
   getEventBySlug(slug: string): EventItem | undefined {
-    return this._events().find(item => item.slug === slug);
+    return this._events().find((item) => item.slug === slug);
   }
 }

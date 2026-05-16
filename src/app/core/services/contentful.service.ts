@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { map, Observable } from "rxjs";
 import { NewsItem } from "../models/news.model";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import { EventItem } from "../models";
 
 @Injectable({
   providedIn: "root",
@@ -17,29 +18,52 @@ export class ContentfulService {
   getNews(): Observable<NewsItem[]> {
     const url = `${this.baseUrl}/entries?access_token=${this.token}&content_type=news`;
 
-    return this.http.get<any>(url).pipe(map((res) => this.transform(res)));
+    return this.http.get<any>(url).pipe(map((res) => this.transformNews(res)));
   }
 
-  private transform(res: any): NewsItem[] {
+  getEvents(): Observable<EventItem[]> {
+    const url = `${this.baseUrl}/entries?access_token=${this.token}&content_type=event`;
+
+    return this.http
+      .get<any>(url)
+      .pipe(map((res) => this.transformEvents(res)));
+  }
+
+  private resolveCover(item: any, assets: any[]): string {
+    const coverAssetId = item.fields.cover?.sys?.id;
+    const cover = assets.find((a: any) => a.sys.id === coverAssetId);
+    return cover ? "https:" + cover.fields.file.url : "";
+  }
+
+  private transformNews(res: any): NewsItem[] {
     const assets = res.includes?.Asset || [];
 
-    return res.items.map((item: any) => {
-      const coverAssetId = item.fields.cover?.sys?.id;
+    return res.items.map((item: any) => ({
+      id: item.sys.id,
+      title: item.fields.title,
+      date: item.fields.date,
+      excerpt: item.fields.excerpt,
+      content: documentToHtmlString(item.fields.content),
+      source: item.fields.source,
+      category: item.fields.category,
+      slug: item.fields.slug,
+      coverUrl: this.resolveCover(item, assets),
+    }));
+  }
 
-      const cover = assets.find((a: any) => a.sys.id === coverAssetId);
+  private transformEvents(res: any): EventItem[] {
+    const assets = res.includes?.Asset || [];
 
-      return {
-        id: item.sys.id,
-        title: item.fields.title,
-        date: item.fields.date,
-        excerpt: item.fields.excerpt,
-        content: documentToHtmlString(item.fields.content),
-        source: item.fields.source,
-        category: item.fields.category,
-        slug: item.fields.slug,
-
-        coverUrl: cover ? "https:" + cover.fields.file.url : "",
-      } as NewsItem;
-    });
+    return res.items.map((item: any) => ({
+      id: item.sys.id,
+      title: item.fields.title,
+      date: item.fields.date,
+      content: documentToHtmlString(item.fields.content),
+      excerpt: item.fields.excerpt,
+      category: item.fields.category,
+      location: item.fields.location,
+      slug: item.fields.slug,
+      coverUrl: this.resolveCover(item, assets),
+    }));
   }
 }
