@@ -193,3 +193,7 @@ body {
   padding-left: 40px;
   margin-bottom: 20px;
 }
+
+.cat-card:hover svg path {
+  fill: var(--primary-orange);
+}
