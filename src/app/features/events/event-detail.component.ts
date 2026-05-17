@@ -3,6 +3,7 @@ import { RouterLink } from "@angular/router";
 import { EventService } from "../../core/services/event.service";
 import { EventItem } from "../../core/models/event.model";
 import { DatePipe } from "@angular/common";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-event-detail",
@@ -198,10 +199,14 @@ import { DatePipe } from "@angular/common";
 })
 export class EventDetailComponent {
   private eventService = inject(EventService);
-
-  @Input() set slug(value: string) {
-    this.eventItem.set(this.eventService.getEventBySlug(value));
-  }
-
   eventItem = signal<EventItem | undefined>(undefined);
+
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.route.paramMap.subscribe((params) => {
+      const slug = params.get("slug") || "";
+      this.eventItem.set(this.eventService.getEventBySlug(slug));
+    });
+  }
 }

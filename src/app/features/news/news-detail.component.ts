@@ -3,6 +3,7 @@ import { RouterLink } from "@angular/router";
 import { NewsService } from "../../core/services/news.service";
 import { NewsItem } from "../../core/models/news.model";
 import { DatePipe } from "@angular/common";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-news-detail",
@@ -106,13 +107,6 @@ import { DatePipe } from "@angular/common";
         font-style: italic;
       }
 
-      // .full-content p {
-      //   font-size: 1rem;
-      //   line-height: 1.8;
-      //   color: #444;
-      //   margin-bottom: 20px;
-      // }
-
       .full-content .news-content ul {
         white-space: pre-wrap;
         margin-bottom: 20px;
@@ -165,10 +159,14 @@ import { DatePipe } from "@angular/common";
 })
 export class NewsDetailComponent {
   private newsService = inject(NewsService);
-
-  @Input() set slug(value: string) {
-    this.newsItem.set(this.newsService.getNewsBySlug(value));
-  }
-
   newsItem = signal<NewsItem | undefined>(undefined);
+
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.route.paramMap.subscribe((params) => {
+      const slug = params.get("slug") || "";
+      this.newsItem.set(this.newsService.getNewsBySlug(slug));
+    });
+  }
 }

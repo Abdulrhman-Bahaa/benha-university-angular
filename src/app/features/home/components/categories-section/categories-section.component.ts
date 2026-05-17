@@ -1,5 +1,5 @@
 import { Component, inject, output } from "@angular/core";
-import { Router, RouterLink } from "@angular/router";
+import { Router } from "@angular/router";
 import { CategoryService } from "../../../../core/services/category.service";
 import { RevealDirective } from "../../../../shared/directives/reveal.directive";
 import { EventEmitter } from "@angular/core";
@@ -9,7 +9,7 @@ import { signal } from "@angular/core";
 @Component({
   selector: "app-categories-section",
   standalone: true,
-  imports: [RouterLink, RevealDirective],
+  imports: [RevealDirective],
   template: `
     <section class="container section-margin">
       <h2 appAnimateOnScroll animation="animate__fadeInLeft">Categories</h2>
