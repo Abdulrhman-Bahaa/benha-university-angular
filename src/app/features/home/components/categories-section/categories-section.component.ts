@@ -1,7 +1,10 @@
-import { Component, inject } from "@angular/core";
-import { RouterLink } from "@angular/router";
+import { Component, inject, output } from "@angular/core";
+import { Router, RouterLink } from "@angular/router";
 import { CategoryService } from "../../../../core/services/category.service";
 import { RevealDirective } from "../../../../shared/directives/reveal.directive";
+import { EventEmitter } from "@angular/core";
+import { Output } from "@angular/core";
+import { signal } from "@angular/core";
 
 @Component({
   selector: "app-categories-section",
@@ -14,7 +17,8 @@ import { RevealDirective } from "../../../../shared/directives/reveal.directive"
       <div class="category-grid">
         @for (category of categories(); track category.id; let i = $index) {
           <a
-            [routerLink]="['/category', category.slug]"
+            (click)="openCategory(category.name)"
+            [class.active]="currentCategory() === category.name"
             class="cat-card card-hover"
             appReveal
             [appRevealDelay]="i * 0.1"
@@ -72,7 +76,11 @@ import { RevealDirective } from "../../../../shared/directives/reveal.directive"
         transition: fill 0.3s ease;
       }
 
-      .cat-card:hover i {
+      .cat-card:hover svg path {
+        fill: var(--primary-orange);
+      }
+
+      .cat-card:hover {
         color: var(--primary-orange);
       }
 
@@ -97,5 +105,21 @@ import { RevealDirective } from "../../../../shared/directives/reveal.directive"
 })
 export class CategoriesSectionComponent {
   private categoryService = inject(CategoryService);
+  private router = inject(Router);
+  isActive = signal(false);
+
+  currentCategory = signal<string | null>(null);
+
+  @Output() categorySelected = new EventEmitter<string>();
+
   categories = this.categoryService.categories;
+
+  openCategory(category: string): void {
+    this.currentCategory.set(category);
+    this.isActive.update((value) => !value);
+    this.categorySelected.emit(category);
+    this.router.navigate(["/events"], {
+      state: { category: category },
+    });
+  }
 }

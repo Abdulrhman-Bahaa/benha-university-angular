@@ -3,14 +3,24 @@ import { EventService } from "../../core/services/event.service";
 import { RevealDirective } from "../../shared/directives/reveal.directive";
 import { TruncatePipe } from "../../shared/pipes/truncate.pipe";
 import { RouterLink } from "@angular/router";
+import { CategoriesSectionComponent } from "../home/components/categories-section/categories-section.component";
 
 @Component({
   selector: "app-events",
   standalone: true,
-  imports: [TruncatePipe, RouterLink, RevealDirective],
+  imports: [
+    TruncatePipe,
+    RouterLink,
+    RevealDirective,
+    CategoriesSectionComponent,
+  ],
   template: `
     <div class="container section-margin">
       <h1 class="page-title">Upcoming Events</h1>
+
+      <app-categories-section
+        (categorySelected)="onCategorySelected($event)"
+      ></app-categories-section>
 
       <div class="events-list">
         @for (event of events(); track event.id; let i = $index) {
@@ -134,4 +144,14 @@ import { RouterLink } from "@angular/router";
 export class EventsComponent {
   private eventService = inject(EventService);
   events = this.eventService.events;
+  private category = history.state.category;
+  constructor() {
+    if (this.category) {
+      this.onCategorySelected(this.category);
+    }
+  }
+
+  onCategorySelected(category: string): void {
+    this.events = this.eventService.getEventsByCategory(category);
+  }
 }

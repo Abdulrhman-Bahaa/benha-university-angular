@@ -197,3 +197,7 @@ body {
 .cat-card:hover svg path {
   fill: var(--primary-orange);
 }
+
+.cat-card.active svg path {
+  fill: var(--primary-orange);
+}
