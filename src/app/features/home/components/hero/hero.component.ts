@@ -39,10 +39,12 @@ import { ScrollService } from "../../../../core/services/scroll.service";
       }
 
       .hero h1 {
-        font-size: 2.5rem;
-        max-width: 500px;
+        font-size: 3rem;
+        max-width: 700px;
         margin-bottom: 20px;
         color: var(--hero-color);
+        overflow-wrap: break-word;
+        word-break: break-word;
       }
 
       /* VIDEO */
@@ -84,19 +86,13 @@ import { ScrollService } from "../../../../core/services/scroll.service";
         text-align: left;
       }
 
-      .hero-overlay h1 {
-        font-size: 3rem;
-        max-width: 700px;
-        margin-bottom: 20px;
-      }
-
       @media (max-width: 768px) {
         .hero {
           height: 300px;
         }
 
-        h1 {
-          font-size: 0.5rem;
+        .hero h1 {
+          font-size: 1.8rem;
         }
       }
     `,
