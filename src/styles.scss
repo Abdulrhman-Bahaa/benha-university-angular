@@ -194,10 +194,6 @@ body {
   margin-bottom: 20px;
 }
 
-.cat-card:hover svg path {
-  fill: var(--primary-orange);
-}
-
-.cat-card.active svg path {
+.cat-card:hover, .cat-card.clicked svg path {
   fill: var(--primary-orange);
 }

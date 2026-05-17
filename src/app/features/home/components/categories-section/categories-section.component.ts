@@ -18,7 +18,7 @@ import { signal } from "@angular/core";
         @for (category of categories(); track category.id; let i = $index) {
           <a
             (click)="openCategory(category.name)"
-            [class.active]="currentCategory() === category.name"
+            [class.clicked]="currentCategory() === category.name"
             class="cat-card card-hover"
             appReveal
             [appRevealDelay]="i * 0.1"
@@ -74,10 +74,6 @@ import { signal } from "@angular/core";
         height: 62px;
         fill: var(--dark-blue);
         transition: fill 0.3s ease;
-      }
-
-      .cat-card:hover svg path {
-        fill: var(--primary-orange);
       }
 
       .cat-card:hover {
