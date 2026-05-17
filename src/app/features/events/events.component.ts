@@ -20,6 +20,7 @@ import { CategoriesSectionComponent } from "../home/components/categories-sectio
 
       <app-categories-section
         (categorySelected)="onCategorySelected($event)"
+        [currentCategory]="category"
       ></app-categories-section>
 
       <div class="events-list">
@@ -144,7 +145,7 @@ import { CategoriesSectionComponent } from "../home/components/categories-sectio
 export class EventsComponent {
   private eventService = inject(EventService);
   events = this.eventService.events;
-  private category = history.state.category;
+  category = history.state.category;
   constructor() {
     if (this.category) {
       this.onCategorySelected(this.category);
@@ -152,6 +153,7 @@ export class EventsComponent {
   }
 
   onCategorySelected(category: string): void {
+    this.category = category;
     this.events = this.eventService.getEventsByCategory(category);
   }
 }

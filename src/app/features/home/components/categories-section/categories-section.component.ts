@@ -1,10 +1,7 @@
-import { Component, inject, output } from "@angular/core";
+import { Component, inject, Output, input, EventEmitter } from "@angular/core";
 import { Router } from "@angular/router";
 import { CategoryService } from "../../../../core/services/category.service";
 import { RevealDirective } from "../../../../shared/directives/reveal.directive";
-import { EventEmitter } from "@angular/core";
-import { Output } from "@angular/core";
-import { signal } from "@angular/core";
 
 @Component({
   selector: "app-categories-section",
@@ -102,17 +99,13 @@ import { signal } from "@angular/core";
 export class CategoriesSectionComponent {
   private categoryService = inject(CategoryService);
   private router = inject(Router);
-  isActive = signal(false);
 
-  currentCategory = signal<string | null>(null);
-
+  currentCategory = input<string | null>(null);
   @Output() categorySelected = new EventEmitter<string>();
 
   categories = this.categoryService.categories;
 
   openCategory(category: string): void {
-    this.currentCategory.set(category);
-    this.isActive.update((value) => !value);
     this.categorySelected.emit(category);
     this.router.navigate(["/events"], {
       state: { category: category },
