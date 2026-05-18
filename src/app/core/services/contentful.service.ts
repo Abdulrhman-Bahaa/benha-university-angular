@@ -3,7 +3,8 @@ import { HttpClient } from "@angular/common/http";
 import { map, Observable } from "rxjs";
 import { NewsItem } from "../models/news.model";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
-import { EventItem } from "../models";
+import { EventItem } from "../models/event.model";
+import { ResourceItem } from "../models/resource.model ";
 
 @Injectable({
   providedIn: "root",
@@ -27,6 +28,14 @@ export class ContentfulService {
     return this.http
       .get<any>(url)
       .pipe(map((res) => this.transformEvents(res)));
+  }
+
+  getResources(): Observable<ResourceItem[]> {
+    const url = `${this.baseUrl}/entries?access_token=${this.token}&content_type=resource`;
+
+    return this.http
+      .get<any>(url)
+      .pipe(map((res) => this.transformResources(res)));
   }
 
   private resolveCover(item: any, assets: any[]): string {
@@ -64,6 +73,20 @@ export class ContentfulService {
       location: item.fields.location,
       slug: item.fields.slug,
       coverUrl: this.resolveCover(item, assets),
+    }));
+  }
+
+  private transformResources(res: any): ResourceItem[] {
+    const assets = res.includes?.Asset || [];
+
+    return res.items.map((item: any) => ({
+      id: item.sys.id,
+      title: item.fields.title,
+      excerpt: item.fields.excerpt,
+      coverUrl: this.resolveCover(item, assets),
+      category: item.fields.category,
+      materialLink: item.fields.materialLink,
+      slug: item.fields.slug,
     }));
   }
 }

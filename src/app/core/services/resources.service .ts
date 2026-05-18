@@ -1,105 +1,47 @@
-import { Injectable, signal } from '@angular/core';
-import { ResourceItem } from '../models/resource.model ';
+import { Injectable, signal } from "@angular/core";
+import { ResourceItem } from "../models/resource.model ";
+import { inject } from "@angular/core";
+import { computed } from "@angular/core";
+import { Signal } from "@angular/core";
+import { ContentfulService } from "./contentful.service";
+import { Category } from "../models/category.model";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class ResourcesService {
   // Using signals for reactive state management
-  private readonly _resources = signal<ResourceItem[]>([
-    {
-      id: 1,
-      title: 'Academic Writing Guide (PDF)',
-      excerpt: 'A guide to improve academic writing skills for university students.',
-      imageUrl: 'assets/images/resources/Academic Writing Guide (PDF).jpg',
-      slug: 'academic-writing-guide'
-    },
-    {
-      id: 2,
-      title: 'How to Prepare for Exams (Benha System)',
-      excerpt: 'Effective strategies for exam preparation within the Benha University system.',
-      imageUrl: 'assets/images/resources/How to Prepare for Exams (Benha System).jpg',
-      slug: 'exam-preparation-benha-system'
-    },
-    {
-      id: 3,
-      title: 'Benha Faculties Guide',
-      excerpt: 'Overview of faculties and departments at Benha University.',
-      imageUrl: 'assets/images/resources/Benha Faculties Guide.jpg',
-      slug: 'benha-faculties-guide'
-    },
-    {
-      id: 4,
-      title: 'Online Learning Platforms',
-      excerpt: 'List of recommended online platforms for student learning.',
-      imageUrl: 'assets/images/resources/Online Learning Platforms.jpg',
-      slug: 'online-learning-platforms'
-    },
-    {
-      id: 5,
-      title: 'Best Note-Taking Apps',
-      excerpt: 'Top applications to improve note-taking and organization.',
-      imageUrl: 'assets/images/resources/Best Note-Taking Apps.jpg',
-      slug: 'best-note-taking-apps'
-    },
-    {
-      id: 6,
-      title: 'Student Services Overview',
-      excerpt: 'Guide to student services available at Benha University.',
-      imageUrl: 'assets/images/resources/Student Services Overview.jpg',
-      slug: 'student-services-overview'
-    },
-    {
-      id: 7,
-      title: 'Credit Hours System Explained',
-      excerpt: 'Explanation of the credit hours system used in university programs.',
-      imageUrl: 'assets/images/resources/Credit Hours System Explained.jpg',
-      slug: 'credit-hours-system-explained'
-    },
-    {
-      id: 8,
-      title: 'Study Skills for Benha Students',
-      excerpt: 'Essential study techniques to help students succeed academically.',
-      imageUrl: 'assets/images/resources/Study Skills for Benha Students.jpg',
-      slug: 'study-skills-benha-students'
-    },
-    {
-      id: 9,
-      title: 'CV Template for Students',
-      excerpt: 'A professional CV template designed for university students.',
-      imageUrl: 'assets/images/resources/CV Template for Students.jpg',
-      slug: 'cv-template-students'
-    },
-    {
-      id: 10,
-      title: 'Time Management for University Life',
-      excerpt: 'Tips and strategies for managing time effectively at university.',
-      imageUrl: 'assets/images/resources/Time Management for University Life.jpg',
-      slug: 'time-management-university-life'
-    },
-    {
-      id: 11,
-      title: 'Graduation Project Guidelines',
-      excerpt: 'Official guidelines for preparing graduation projects.',
-      imageUrl: 'assets/images/resources/Graduation Project Guidelines.jpg',
-      slug: 'graduation-project-guidelines'
-    },
-    {
-      id: 12,
-      title: 'Top Free Tools for Students',
-      excerpt: 'A collection of free tools to support student productivity and learning.',
-      imageUrl: 'assets/images/resources/Top Free Tools for Students.jpg',
-      slug: 'top-free-tools-students'
-    }
+  private contentfulService = inject(ContentfulService);
+  private readonly _resources = signal<ResourceItem[]>([]);
+
+  private readonly _categories = signal<Category[]>([
+    { id: 1, name: "Guides", icon: "", slug: "guides", color: "#4CAF50" },
+    { id: 2, name: "Tools", icon: "", slug: "tools", color: "#2196F3" },
+    { id: 3, name: "Articles", icon: "", slug: "articles", color: "#FF9800" },
+    { id: 4, name: "Videos", icon: "", slug: "videos", color: "#9C27B0" },
+    { id: 5, name: "PDFs", icon: "", slug: "pdfs", color: "#F44336" },
   ]);
 
+  constructor() {
+    this.contentfulService.getResources().subscribe((resources) => {
+      this._resources.set(resources);
+    });
+  }
+
   readonly resources = this._resources.asReadonly();
+  readonly categories = this._categories.asReadonly();
 
   getResourceById(id: number): ResourceItem | undefined {
-    return this._resources().find(item => item.id === id);
+    return this._resources().find((item) => item.id === id);
   }
 
   getResourceBySlug(slug: string): ResourceItem | undefined {
-    return this._resources().find(item => item.slug === slug);
+    return this._resources().find((item) => item.slug === slug);
+  }
+
+  getResourcesByCategory(category: string): Signal<ResourceItem[]> {
+    return computed(() =>
+      this._resources().filter((item) => item.category === category),
+    );
   }
 }
