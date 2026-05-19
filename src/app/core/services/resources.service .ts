@@ -23,8 +23,12 @@ export class ResourcesService {
   ]);
 
   constructor() {
-    this.contentfulService.getResources().subscribe((resources) => {
-      this._resources.set(resources);
+    this.loadResources();
+  }
+
+  loadResources() {
+    this.contentfulService.getResources().subscribe((data) => {
+      this._resources.set(data);
     });
   }
 

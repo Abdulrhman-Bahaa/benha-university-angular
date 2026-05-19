@@ -2,8 +2,10 @@ import { Component, inject, signal, HostListener, OnInit } from "@angular/core";
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { ScrollService } from "../../../core/services/scroll.service";
-import { EventService } from "../../../core";
+import { EventService, NewsService } from "../../../core";
 import { SearchOverlayComponent } from "../../../shared/components/search-overlay/search-overlay.component";
+import { ContentfulService } from "../../../core/services/contentful.service";
+import { ResourcesService } from "../../../core/services/resources.service ";
 
 interface NavItem {
   label: string;
@@ -77,18 +79,30 @@ interface NavItem {
           <i class="fas fa-search"></i>
         </div>
 
-        <button
-          class="theme-toggle"
-          type="button"
-          (click)="toggleTheme()"
-          aria-label="Toggle dark mode"
-        >
-          <i
-            class="fas"
-            [class.fa-moon]="!isDarkMode()"
-            [class.fa-sun]="isDarkMode()"
-          ></i>
-        </button>
+        <div class="spacer"></div>
+
+        <div>
+          <button
+            class="language-toggle"
+            type="button"
+            (click)="toggleLanguage()"
+            aria-label="Toggle language"
+          >
+            <i class="fas fa-globe-americas"></i>
+          </button>
+          <button
+            class="theme-toggle"
+            type="button"
+            (click)="toggleTheme()"
+            aria-label="Toggle dark mode"
+          >
+            <i
+              class="fas"
+              [class.fa-moon]="!isDarkMode()"
+              [class.fa-sun]="isDarkMode()"
+            ></i>
+          </button>
+        </div>
       </nav>
     </header>
 
@@ -243,7 +257,8 @@ interface NavItem {
         transition: box-shadow 0.2s;
       }
 
-      .theme-toggle {
+      .theme-toggle,
+      .language-toggle {
         margin-left: 12px;
         background: var(--bg-light);
         border: 1px solid var(--border-color);
@@ -258,10 +273,15 @@ interface NavItem {
         transition: all 0.2s ease;
       }
 
-      .theme-toggle:hover {
+      .theme-toggle:hover,
+      .language-toggle:hover {
         background: var(--white);
         transform: translateY(-1px);
       }
+
+      // .language-toggle {
+      //   margin-right: auto;
+      // }
 
       .search-bar:focus-within {
         box-shadow: 0 0 0 2px var(--primary-orange);
@@ -331,6 +351,10 @@ interface NavItem {
 })
 export class HeaderComponent implements OnInit {
   private scrollService = inject(ScrollService);
+  private contentfulService = inject(ContentfulService);
+  private newsService = inject(NewsService);
+  private eventService = inject(EventService);
+  private resourcesService = inject(ResourcesService);
 
   isMobileMenuOpen = false;
   isSearchOpen = signal(false);
@@ -358,6 +382,17 @@ export class HeaderComponent implements OnInit {
 
   toggleTheme(): void {
     this.setTheme(!this.isDarkMode());
+  }
+
+  toggleLanguage(): void {
+    const currentLang = this.contentfulService.locale;
+    const newLang = currentLang === "en-US" ? "ar-EG" : "en-US";
+    this.contentfulService.locale =
+      this.contentfulService.locale === "en-US" ? "ar-EG" : "en-US";
+    this.newsService.loadNews();
+    this.eventService.loadEvents();
+    this.resourcesService.loadResources();
+    localStorage.setItem("benha-language", newLang);
   }
 
   private getInitialTheme(): boolean {

@@ -11,8 +11,12 @@ export class NewsService {
   private readonly _news = signal<NewsItem[]>([]);
 
   constructor() {
-    this.contentfulService.getNews().subscribe((news) => {
-      this._news.set(news);
+    this.loadNews();
+  }
+
+  loadNews() {
+    this.contentfulService.getNews().subscribe((data) => {
+      this._news.set(data);
     });
   }
 

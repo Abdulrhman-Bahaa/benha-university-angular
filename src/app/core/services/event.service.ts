@@ -13,8 +13,12 @@ export class EventService {
   private readonly _events = signal<EventItem[]>([]);
 
   constructor() {
-    this.contentfulService.getEvents().subscribe((events) => {
-      this._events.set(events);
+    this.loadEvents();
+  }
+
+  loadEvents() {
+    this.contentfulService.getEvents().subscribe((data) => {
+      this._events.set(data);
     });
   }
 

@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, signal } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { map, Observable } from "rxjs";
 import { NewsItem } from "../models/news.model";
@@ -14,16 +14,18 @@ export class ContentfulService {
     "https://cdn.contentful.com/spaces/y8fhg5wrxobw/environments/master";
   private token = "sM5agB11Wf1XoH_ZCxlRPZa8IkfAnPb-QaE8Cs80RG4";
 
+  public locale = "en-US";
+
   constructor(private http: HttpClient) {}
 
   getNews(): Observable<NewsItem[]> {
-    const url = `${this.baseUrl}/entries?access_token=${this.token}&content_type=news`;
+    const url = `${this.baseUrl}/entries?access_token=${this.token}&content_type=news&locale=${this.locale}`;
 
     return this.http.get<any>(url).pipe(map((res) => this.transformNews(res)));
   }
 
   getEvents(): Observable<EventItem[]> {
-    const url = `${this.baseUrl}/entries?access_token=${this.token}&content_type=event`;
+    const url = `${this.baseUrl}/entries?access_token=${this.token}&content_type=event&locale=${this.locale}`;
 
     return this.http
       .get<any>(url)
@@ -31,7 +33,7 @@ export class ContentfulService {
   }
 
   getResources(): Observable<ResourceItem[]> {
-    const url = `${this.baseUrl}/entries?access_token=${this.token}&content_type=resource`;
+    const url = `${this.baseUrl}/entries?access_token=${this.token}&content_type=resource&locale=${this.locale}`;
 
     return this.http
       .get<any>(url)

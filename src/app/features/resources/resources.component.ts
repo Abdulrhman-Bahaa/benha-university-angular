@@ -35,7 +35,7 @@ import { signal } from "@angular/core";
       </div>
 
       <div class="news-grid">
-        @for (resource of newsItems(); track resource.id) {
+        @for (resource of resources(); track resource.id) {
           <article class="news-card card-hover" appReveal>
             <img
               [src]="resource.coverUrl"
@@ -260,7 +260,7 @@ import { signal } from "@angular/core";
 })
 export class ResourcesComponent {
   private resourcesService = inject(ResourcesService);
-  newsItems = this.resourcesService.resources;
+  resources = this.resourcesService.resources;
 
   categories = this.resourcesService.categories;
 
@@ -268,6 +268,6 @@ export class ResourcesComponent {
 
   openCategory(category: string): void {
     this.currentCategory.set(category);
-    this.newsItems = this.resourcesService.getResourcesByCategory(category);
+    this.resources = this.resourcesService.getResourcesByCategory(category);
   }
 }

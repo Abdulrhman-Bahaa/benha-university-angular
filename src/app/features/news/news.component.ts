@@ -1,9 +1,7 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject, Signal } from "@angular/core";
 import { NewsService } from "../../core/services/news.service";
-import { ContentfulService } from "../../core/services/contentful.service";
 import { TruncatePipe } from "../../shared/pipes/truncate.pipe";
 import { RouterLink } from "@angular/router";
-import { NewsItem } from "../../core/models/news.model";
 
 @Component({
   selector: "app-news",
@@ -14,7 +12,7 @@ import { NewsItem } from "../../core/models/news.model";
       <h1 class="page-title">Latest News</h1>
 
       <div class="news-grid">
-        @for (news of newsItems; track news.id) {
+        @for (news of newsService.news(); track news.id) {
           <article class="news-card card-hover" appReveal>
             <img [src]="news.coverUrl" [alt]="news.title" loading="lazy" />
             <div class="card-content">
@@ -108,12 +106,9 @@ import { NewsItem } from "../../core/models/news.model";
   ],
 })
 export class NewsComponent {
-  contentful = inject(ContentfulService);
+  newsService = inject(NewsService);
 
-  newsItems: NewsItem[] = [];
   ngOnInit(): void {
-    this.contentful.getNews().subscribe((data) => {
-      this.newsItems = data;
-    });
+    this.newsService.loadNews();
   }
 }

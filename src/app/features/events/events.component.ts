@@ -144,7 +144,9 @@ import { CategoriesSectionComponent } from "../home/components/categories-sectio
 })
 export class EventsComponent {
   private eventService = inject(EventService);
+
   events = this.eventService.events;
+
   category = history.state.category;
   constructor() {
     if (this.category) {
