@@ -75,7 +75,7 @@ import { TranslateModule } from "@ngx-translate/core";
       }
 
       .hero h1 {
-        font-size: 3rem;
+        font-size: 4rem;
         color: var(--white);
         max-width: 500px;
         margin-bottom: 20px;
@@ -93,28 +93,16 @@ import { TranslateModule } from "@ngx-translate/core";
 
       .hero-overlay {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        inset: 0; /* replaces top/left/width/height */
+        z-index: 0;
 
         background-image:
           linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-          url("/benha-university-angular/assets/images/main/main.jpeg");
+          url("/assets/images/main/main.jpeg");
 
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-
-        z-index: 0;
-      }
-
-      .hero-overlay {
-        position: absolute;
-        inset: 0; /* replaces top/left/width/height */
-        z-index: 0;
-
-        background: rgba(0, 0, 0, 0.5);
 
         display: flex;
         align-items: center;
@@ -139,7 +127,7 @@ import { TranslateModule } from "@ngx-translate/core";
         }
 
         h1 {
-          font-size: 2rem;
+          font-size: 4rem;
         }
       }
 

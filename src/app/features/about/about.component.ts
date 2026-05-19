@@ -135,7 +135,13 @@ interface TeamMember {
         inset: 0; /* replaces top/left/width/height */
         z-index: 0;
 
-        background: rgba(0, 0, 0, 0.5);
+        background-image:
+          linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+          url("/assets/images/main/main.jpeg");
+
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
 
         display: flex;
         align-items: center;
@@ -166,7 +172,7 @@ interface TeamMember {
         }
 
         h1 {
-          font-size: 2rem;
+          font-size: 4em;
         }
       }
 
