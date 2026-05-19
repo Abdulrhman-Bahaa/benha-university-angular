@@ -1,1 +1,0 @@
-import{ca as n}from"./chunk-JOVNFIMP.js";var p=(()=>{class r{transform(t,e=100,i="..."){return!t||t.length<=e?t:t.substring(0,e).trim()+i}static{this.\u0275fac=function(e){return new(e||r)}}static{this.\u0275pipe=n({name:"truncate",type:r,pure:!0,standalone:!0})}}return r})();export{p as a};

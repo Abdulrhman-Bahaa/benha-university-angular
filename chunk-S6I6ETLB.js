@@ -1,4 +1,4 @@
-import{e as h}from"./chunk-FIH6REAI.js";import{S as i,X as s,_a as e}from"./chunk-JOVNFIMP.js";var o=(()=>{class c{constructor(l){this.sanitizer=l,this._categories=e([{id:1,name:"Sport",icon:this.sanitizer.bypassSecurityTrustHtml(`<svg
+import{e as h}from"./chunk-JB56HRRS.js";import{T as i,Y as s,ab as e}from"./chunk-DTZFAUUA.js";var o=(()=>{class c{constructor(l){this.sanitizer=l,this._categories=e([{id:1,name:"Sport",icon:this.sanitizer.bypassSecurityTrustHtml(`<svg
               xmlns="http://www.w3.org/2000/svg"
               width="55"
               height="62"
