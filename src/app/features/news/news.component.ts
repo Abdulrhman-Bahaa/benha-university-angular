@@ -2,14 +2,15 @@ import { Component, inject, Signal } from "@angular/core";
 import { NewsService } from "../../core/services/news.service";
 import { TruncatePipe } from "../../shared/pipes/truncate.pipe";
 import { RouterLink } from "@angular/router";
+import { TranslateModule } from "@ngx-translate/core";
 
 @Component({
   selector: "app-news",
   standalone: true,
-  imports: [TruncatePipe, RouterLink],
+  imports: [TruncatePipe, RouterLink, TranslateModule],
   template: `
     <div class="container section-margin">
-      <h1 class="page-title">Latest News</h1>
+      <h1 class="page-title">{{ "NEWS.LATEST_NEWS" | translate }}</h1>
 
       <div class="news-grid">
         @for (news of newsService.news(); track news.id) {
@@ -17,11 +18,13 @@ import { RouterLink } from "@angular/router";
             <img [src]="news.coverUrl" [alt]="news.title" loading="lazy" />
             <div class="card-content">
               <h3>
-                <a [routerLink]="['/news', news.slug]">{{ news.title }}</a>
+                <a [routerLink]="['/news', news.slug]">{{
+                  news.title | translate
+                }}</a>
               </h3>
               <p>{{ news.excerpt | truncate: 150 }}</p>
               @if (news.category) {
-                <span class="category">{{ news.category }}</span>
+                <span class="category">{{ news.category | translate }}</span>
               }
             </div>
           </article>

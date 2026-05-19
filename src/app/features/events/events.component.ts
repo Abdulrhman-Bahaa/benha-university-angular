@@ -4,6 +4,7 @@ import { RevealDirective } from "../../shared/directives/reveal.directive";
 import { TruncatePipe } from "../../shared/pipes/truncate.pipe";
 import { RouterLink } from "@angular/router";
 import { CategoriesSectionComponent } from "../home/components/categories-section/categories-section.component";
+import { TranslateModule } from "@ngx-translate/core";
 
 @Component({
   selector: "app-events",
@@ -13,10 +14,11 @@ import { CategoriesSectionComponent } from "../home/components/categories-sectio
     RouterLink,
     RevealDirective,
     CategoriesSectionComponent,
+    TranslateModule,
   ],
   template: `
     <div class="container section-margin">
-      <h1 class="page-title">Upcoming Events</h1>
+      <h1 class="page-title">{{ "SECTION.UPCOMING_EVENTS" | translate }}</h1>
 
       <app-categories-section
         (categorySelected)="onCategorySelected($event)"
@@ -46,7 +48,7 @@ import { CategoriesSectionComponent } from "../home/components/categories-sectio
                 class="btn btn-secondary"
                 [routerLink]="['/events', event.slug]"
               >
-                View Details
+                {{ "COMMON.VIEW_DETAILS" | translate }}
               </button>
             </div>
           </article>

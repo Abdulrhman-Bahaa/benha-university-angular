@@ -2,14 +2,17 @@ import { Component, inject, Output, input, EventEmitter } from "@angular/core";
 import { Router } from "@angular/router";
 import { CategoryService } from "../../../../core/services/category.service";
 import { RevealDirective } from "../../../../shared/directives/reveal.directive";
+import { TranslateModule } from "@ngx-translate/core";
 
 @Component({
   selector: "app-categories-section",
   standalone: true,
-  imports: [RevealDirective],
+  imports: [RevealDirective, TranslateModule],
   template: `
     <section class="container section-margin">
-      <h2 appAnimateOnScroll animation="animate__fadeInLeft">Categories</h2>
+      <h2 appAnimateOnScroll animation="animate__fadeInLeft">
+        {{ "HOME.CATEGORIES" | translate }}
+      </h2>
 
       <div class="category-grid">
         @for (category of categories(); track category.id; let i = $index) {
@@ -22,7 +25,7 @@ import { RevealDirective } from "../../../../shared/directives/reveal.directive"
           >
             <div [innerHTML]="category.icon"></div>
 
-            <span>{{ category.name }}</span>
+            <span>{{ "CATEGORY." + category.name | translate }}</span>
           </a>
         }
       </div>

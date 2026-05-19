@@ -197,3 +197,13 @@ body {
 .cat-card:hover, .cat-card.clicked svg path {
   fill: var(--primary-orange);
 }
+
+[dir="rtl"] {
+  body {
+    text-align: right;
+  }
+
+  .container {
+    direction: rtl;
+  }
+}

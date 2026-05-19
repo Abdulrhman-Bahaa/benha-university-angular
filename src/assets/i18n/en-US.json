@@ -1,0 +1,92 @@
+{
+  "NAV": {
+    "HOME": "Home",
+    "NEWS": "News",
+    "EVENTS": "Events",
+    "RESOURCES": "Resources",
+    "ABOUT": "About",
+    "CONTACT": "Contact",
+    "SEARCH": "Search"
+  },
+    "HERO": {
+    "TITLE": "Stay Updated With Benha University",
+    "BUTTON": "Explore Events"
+  },
+    "SECTION": {
+    "LATEST_NEWS": "Latest News",
+    "UPCOMING_EVENTS": "Upcoming Events"
+  },
+    "COMMON": {
+    "VIEW_ALL": "View All",
+    "VIEW_DETAILS": "View Details"
+  },
+  "HOME": {
+    "CATEGORIES": "Categories"
+  },
+  "CATEGORY": {
+    "Sport": "Sport",
+    "Culture": "Culture",
+    "Tech": "Tech",
+    "Art": "Art"
+  },
+  "FOOTER": {
+    "BRAND_NAME": "Benha University",
+    "BRAND_TAGLINE": "Empowering minds, building futures.",
+    "QUICK_LINKS": "Quick Links",
+    "CONTACT_INFO": "Contact Info",
+    "SOCIAL_LINKS": "Follow Us",    
+    "COPYRIGHT": "© 2023 Benha University. All rights reserved."
+  },
+  "NEWS": {
+    "LATEST_NEWS": "Latest News"
+  },
+  "RESOURCES": {
+    "TITLE": "Resources",
+    "SUBTITLE": "Explore useful materials and tools for students",
+    "CATEGORIES": {
+      "Articles": "Articles",
+      "Tools": "Tools",
+      "Guides": "Guides",
+      "Videos": "Videos",
+      "PDFs": "PDFs"
+    }
+  },
+  "ABOUT": {
+        "TITLE": "About Benha On",
+        "SUBTITLE": "Get to know our mission, vision, and the team behind the platform.",
+        "WHO_WE_ARE": "Who We Are",
+        "WHO_WE_ARE_DESC": "Benha On is a student-focused platform designed to support students of Benha University throughout their academic journey with ease. It provides quick access to university news, upcoming events, and useful academic resources in one place.",
+        "MISSION": "Our Mission",
+        "MISSION_DESC": "Our mission is to simplify student life by providing clear, organized, and easily accessible information for all students. We aim to help them stay informed, improve their academic performance, and make the most of their university experience.",
+        "VISION": "Our Vision",
+        "VISION_DESC": "Our vision is to become the preferred digital platform for university students, providing a seamless and reliable experience that supports learning, growth, and communication within the university community.",
+        "WHY_BENHA_ON": "Why Benha On?",
+        "FEATURE_1": "Comprehensive Platform",
+        "FEATURE_1_DESC": "All your news, events, and resources gathered in one place.",
+        "FEATURE_2": "Simple and Easy to Use",
+        "FEATURE_2_DESC": "A user-friendly experience designed with students in mind.",
+        "FEATURE_3": "Tailored for Benha Students",
+        "FEATURE_3_DESC": "A simple guide to staying organized and informed at Benha University.",
+        "TEAM": "Our Team"
+    },
+    "CONTACT": {
+        "TITLE": "Contact Us",
+        "SUBTITLE": "Do you have any questions or suggestions? We'd love to hear from you!",
+        "NAME": "Name",
+        "EMAIL": "Email",
+        "MESSAGE": "Message",
+        "BUTTON": "Send Message",
+        "PHONE": "Phone",
+        "ADDRESS": "Address",
+        "EMAIL_CONTACT": "Email",
+        "SOCIAL_MEDIA": "Social Media",
+        "SUBJECT": "Subject",
+        "GET_IN_TOUCH": "Get In Touch",
+        "PLACEHOLDER": {
+            "NAME": "Enter your name",
+            "EMAIL": "Enter your email",
+            "MESSAGE": "Enter your message",
+            "SUBJECT": "Enter the subject of your message"
+        }
+    }
+}

@@ -3,14 +3,18 @@ import { RouterLink } from "@angular/router";
 import { EventService } from "../../../../core/services/event.service";
 import { SectionHeaderComponent } from "../../../../shared/components/section-header/section-header.component";
 import { TruncatePipe } from "../../../../shared/pipes/truncate.pipe";
+import { TranslateModule } from "@ngx-translate/core";
 
 @Component({
   selector: "app-events-section",
   standalone: true,
-  imports: [RouterLink, SectionHeaderComponent, TruncatePipe],
+  imports: [RouterLink, SectionHeaderComponent, TruncatePipe, TranslateModule],
   template: `
     <section class="container section-margin">
-      <app-section-header title="Upcoming Events" viewAllLink="/events" />
+      <app-section-header
+        title="SECTION.UPCOMING_EVENTS"
+        viewAllLink="/events"
+      />
 
       <div class="event-slider">
         <div class="event-wrapper">
@@ -44,7 +48,7 @@ import { TruncatePipe } from "../../../../shared/pipes/truncate.pipe";
                   class="btn btn-secondary"
                   [routerLink]="['/events', event.slug]"
                 >
-                  View Details
+                  {{ "COMMON.VIEW_DETAILS" | translate }}
                 </button>
               </div>
             </div>

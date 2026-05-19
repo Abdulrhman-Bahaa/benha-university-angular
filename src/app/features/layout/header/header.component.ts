@@ -6,6 +6,8 @@ import { EventService, NewsService } from "../../../core";
 import { SearchOverlayComponent } from "../../../shared/components/search-overlay/search-overlay.component";
 import { ContentfulService } from "../../../core/services/contentful.service";
 import { ResourcesService } from "../../../core/services/resources.service ";
+import { TranslateService } from "@ngx-translate/core";
+import { TranslateModule } from "@ngx-translate/core";
 
 interface NavItem {
   label: string;
@@ -16,7 +18,13 @@ interface NavItem {
 @Component({
   selector: "app-header",
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, FormsModule, SearchOverlayComponent],
+  imports: [
+    RouterLink,
+    RouterLinkActive,
+    FormsModule,
+    SearchOverlayComponent,
+    TranslateModule,
+  ],
   template: `
     <header>
       <nav class="container">
@@ -68,14 +76,18 @@ interface NavItem {
                 [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
                 (click)="isMobileMenuOpen = false"
               >
-                {{ item.label }}
+                {{ item.label | translate }}
               </a>
             </li>
           }
         </ul>
 
         <div class="search-bar">
-          <input (click)="openSearch()" type="text" placeholder="Search" />
+          <input
+            (click)="openSearch()"
+            type="text"
+            placeholder="{{ 'NAV.SEARCH' | translate }}"
+          />
           <i class="fas fa-search"></i>
         </div>
 
@@ -279,10 +291,6 @@ interface NavItem {
         transform: translateY(-1px);
       }
 
-      // .language-toggle {
-      //   margin-right: auto;
-      // }
-
       .search-bar:focus-within {
         box-shadow: 0 0 0 2px var(--primary-orange);
       }
@@ -355,18 +363,19 @@ export class HeaderComponent implements OnInit {
   private newsService = inject(NewsService);
   private eventService = inject(EventService);
   private resourcesService = inject(ResourcesService);
+  private translateService = inject(TranslateService);
 
   isMobileMenuOpen = false;
   isSearchOpen = signal(false);
   isDarkMode = signal(false);
 
   navItems: NavItem[] = [
-    { label: "Home", route: "/", exact: true },
-    { label: "News", route: "/news" },
-    { label: "Events", route: "/events" },
-    { label: "Resources", route: "/resources" },
-    { label: "About", route: "/about" },
-    { label: "Contact", route: "/contact" },
+    { label: "NAV.HOME", route: "/", exact: true },
+    { label: "NAV.NEWS", route: "/news" },
+    { label: "NAV.EVENTS", route: "/events" },
+    { label: "NAV.RESOURCES", route: "/resources" },
+    { label: "NAV.ABOUT", route: "/about" },
+    { label: "NAV.CONTACT", route: "/contact" },
   ];
 
   constructor() {
@@ -374,6 +383,7 @@ export class HeaderComponent implements OnInit {
     document.addEventListener("closeSearchOverlay", () => {
       this.isSearchOpen.set(false);
     });
+    this.translateService.setDefaultLang("en-US");
   }
 
   ngOnInit(): void {
@@ -392,6 +402,14 @@ export class HeaderComponent implements OnInit {
     this.newsService.loadNews();
     this.eventService.loadEvents();
     this.resourcesService.loadResources();
+
+    // Add a class to the document for RTL support if Arabic is selected
+    document.documentElement.dir = newLang === "ar-EG" ? "rtl" : "ltr";
+
+    document.documentElement.classList.add("rtl");
+
+    this.translateService.use(newLang);
+
     localStorage.setItem("benha-language", newLang);
   }
 
