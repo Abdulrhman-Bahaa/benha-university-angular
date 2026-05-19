@@ -5,17 +5,24 @@ import { RouterLink } from "@angular/router";
 import { HeroComponent } from "../home/components/hero/hero.component";
 import { RevealDirective } from "../../shared/directives/reveal.directive";
 import { signal } from "@angular/core";
+import { TranslateModule } from "@ngx-translate/core";
 
 @Component({
   selector: "app-resources",
   standalone: true,
-  imports: [TruncatePipe, RouterLink, HeroComponent, RevealDirective],
+  imports: [
+    TruncatePipe,
+    RouterLink,
+    HeroComponent,
+    RevealDirective,
+    TranslateModule,
+  ],
   template: `
     <section class="hero">
       <div class="hero-overlay">
         <div class="container hero-content">
-          <h1>Resources</h1>
-          <p>Explore useful materials and tools for students</p>
+          <h1>{{ "RESOURCES.TITLE" | translate }}</h1>
+          <p>{{ "RESOURCES.SUBTITLE" | translate }}</p>
         </div>
       </div>
     </section>
@@ -29,13 +36,15 @@ import { signal } from "@angular/core";
             appReveal
             [appRevealDelay]="i * 0.1"
           >
-            <span>{{ category.name }}</span>
+            <span>{{
+              "RESOURCES.CATEGORIES." + category.name | translate
+            }}</span>
           </a>
         }
       </div>
 
       <div class="news-grid">
-        @for (resource of newsItems(); track resource.id) {
+        @for (resource of resources(); track resource.id) {
           <article class="news-card card-hover" appReveal>
             <img
               [src]="resource.coverUrl"
@@ -100,19 +109,28 @@ import { signal } from "@angular/core";
         z-index: 0;
       }
 
-      .hero-overlay .container {
+      .hero-overlay {
         position: absolute;
-        top: 30%;
-        left: 14%;
-        width: 100%;
-        height: 70%;
+        inset: 0; /* replaces top/left/width/height */
+        z-index: 0;
+
+        background: rgba(0, 0, 0, 0.5);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        color: var(--white);
+      }
+
+      [dir="ltr"] .hero-overlay .container {
+        align-items: flex-start;
         text-align: left;
       }
 
-      .hero-overlay h1 {
-        font-size: 4rem;
-        max-width: 700px;
-        margin-bottom: 20px;
+      [dir="rtl"] .hero-overlay .container {
+        align-items: flex-end;
+        text-align: right;
       }
 
       @media (max-width: 768px) {
@@ -260,7 +278,7 @@ import { signal } from "@angular/core";
 })
 export class ResourcesComponent {
   private resourcesService = inject(ResourcesService);
-  newsItems = this.resourcesService.resources;
+  resources = this.resourcesService.resources;
 
   categories = this.resourcesService.categories;
 
@@ -268,6 +286,6 @@ export class ResourcesComponent {
 
   openCategory(category: string): void {
     this.currentCategory.set(category);
-    this.newsItems = this.resourcesService.getResourcesByCategory(category);
+    this.resources = this.resourcesService.getResourcesByCategory(category);
   }
 }

@@ -11,8 +11,7 @@ import { RevealDirective } from "../../../../shared/directives/reveal.directive"
   imports: [RouterLink, SectionHeaderComponent, TruncatePipe, RevealDirective],
   template: `
     <section class="container section-margin">
-      <app-section-header title="Latest News" viewAllLink="/news" />
-
+      <app-section-header title="SECTION.LATEST_NEWS" viewAllLink="/news" />
       <div class="news-grid">
         @for (news of newsItems().slice(0, 3); track news.id; let i = $index) {
           <article

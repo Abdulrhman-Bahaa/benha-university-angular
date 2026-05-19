@@ -6,12 +6,11 @@ import {
   ElementRef,
   ViewChild,
 } from "@angular/core";
-import { ScrollService } from "../../../../core/services/scroll.service";
-
+import { TranslateModule } from "@ngx-translate/core";
 @Component({
   selector: "app-hero",
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, TranslateModule],
   template: `
     <section class="hero">
       <video #video autoplay muted loop playsinline class="hero-video">
@@ -20,10 +19,11 @@ import { ScrollService } from "../../../../core/services/scroll.service";
       <div class="hero-overlay">
         <div class="container">
           <h1 class="animate__animated animate__fadeIn">
-            Stay Updated With Benha University
+            {{ "HERO.TITLE" | translate }}
           </h1>
+
           <a routerLink="/events" class="btn btn-primary pulse-animation">
-            Explore Events
+            {{ "HERO.BUTTON" | translate }}
           </a>
         </div>
       </div>
@@ -61,29 +61,26 @@ import { ScrollService } from "../../../../core/services/scroll.service";
 
       .hero-overlay {
         position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transform: translate(-50%, -50%);
+        inset: 0; /* replaces top/left/width/height */
         z-index: 0;
 
-        /* dark overlay for readability */
         background: rgba(0, 0, 0, 0.5);
 
         display: flex;
-        align-items: left;
+        align-items: center;
+        justify-content: center;
+
         color: var(--white);
       }
 
-      .hero-overlay .container {
-        position: absolute;
-        top: 25%;
-        left: 14%;
-        width: 100%;
-        height: 70%;
+      [dir="ltr"] .hero-overlay .container {
+        align-items: flex-start;
         text-align: left;
+      }
+
+      [dir="rtl"] .hero-overlay .container {
+        align-items: flex-end;
+        text-align: right;
       }
 
       @media (max-width: 768px) {

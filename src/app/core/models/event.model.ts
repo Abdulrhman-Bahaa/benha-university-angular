@@ -12,7 +12,7 @@ export interface EventItem {
 
 export enum EventCategory {
   Sport = "Sport",
-  Cultural = "Cultural",
+  Cultural = "Culture",
   Tech = "Tech",
   Art = "Art",
 }
